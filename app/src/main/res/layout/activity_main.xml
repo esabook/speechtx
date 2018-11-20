@@ -19,6 +19,15 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent" />
 
+		<TextView
+			android:id="@+id/tv_query"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:padding="30dp"
+			app:layout_constraintTop_toBottomOf="@+id/btn_record"
+			tools:text="hsjah sajhsjahs sa jahsjah jshajhsja shajshaj jshajshaj hsajhsaj shajshajsh jahjshajsh hjashajhs jahajshajsha" />
+
 		<ListView
 			android:id="@+id/list_dictionary"
 			android:layout_width="match_parent"
@@ -27,7 +36,7 @@
 			android:paddingRight="30dp"
 			android:scrollbarStyle="outsideOverlay"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/btn_record"
+			app:layout_constraintTop_toBottomOf="@+id/tv_query"
 			tools:listitem="@layout/item_dictionary_counter" />
 
 	</android.support.constraint.ConstraintLayout>

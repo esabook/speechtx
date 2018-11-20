@@ -5,6 +5,8 @@ import ai.api.android.AIConfiguration
 import ai.api.android.AIService
 import ai.api.model.AIError
 import ai.api.model.AIResponse
+import ai.api.model.Entity
+import ai.api.model.EntityEntry
 import android.Manifest
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
@@ -20,6 +22,7 @@ import com.github.esabook.speechtx.models.DictionaryDTO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -54,13 +57,27 @@ class MainActivity : AppCompatActivity(), AIListener {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.listDictionary.adapter = listAdapter
         mBinding.btnRecord.setOnClickListener {
+
+            mBinding.tvQuery.setText(null)
+
             if (onListening)
                 mService.cancel()
             else
                 if (isRecordPermissionGranted())
                     requestRecordPermission()
-                else
+                else {
+
+                    val entity = Entity("QI")
+                    for (d in currentDictData) {
+                        entity.addEntry(EntityEntry(d.word, arrayOf(d.word)))
+                    }
+
+                    Thread(
+                        Runnable {
+                            mService.uploadUserEntities(Collections.singletonList(entity))
+                        })
                     mService.startListening()
+                }
         }
 
         fetchDictionaryData()
@@ -116,6 +133,8 @@ class MainActivity : AppCompatActivity(), AIListener {
 
     override fun onResult(result: AIResponse?) {
         val recognizedText = result?.result?.resolvedQuery?.toUpperCase()
+        mBinding.tvQuery.setText(recognizedText)
+
         var pattern: Pattern
         var matcher: Matcher
 
