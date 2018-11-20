@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+			name="model"
+			type="com.github.esabook.speechtx.models.DictionaryDTO" />
+	</data>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@{model.highlighted ? @color/highlightedItem : -1}"
+		android:padding="10dp">
+
+		<TextView
+			android:id="@+id/i_word"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@{model.word}"
+			tools:text="word" />
+
+		<TextView
+			android:id="@+id/i_frequency"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@{``+model.frequency}"
+			tools:text="frequency" />
+	</LinearLayout>
+</layout>
