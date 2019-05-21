@@ -6,3 +6,8 @@ Rule:
 - Increment usage of word-rating
 - Show detected keyword
 - Shorting word-rating to largest in top
+
+
+Preview:
+
+![](doc/demo.gif)
